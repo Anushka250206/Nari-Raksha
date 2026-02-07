@@ -1,0 +1,353 @@
+
+-- NARIRAKSHA Complete SQL File
+-- ===============================
+
+DROP DATABASE IF EXISTS NARIRAKSHA;
+CREATE DATABASE NARIRAKSHA;
+USE NARIRAKSHA;
+
+-- ===============================
+-- admin
+-- ===============================
+CREATE TABLE admin (
+    id INT PRIMARY KEY,
+    adname VARCHAR(50),
+    password VARCHAR(50)
+);
+
+INSERT INTO admin VALUES
+(1, 'admin', 'Anushroot');
+
+-- ===============================
+-- users
+-- ===============================
+CREATE TABLE users (
+    user_id INT PRIMARY KEY,
+    name VARCHAR(50),
+    contact BIGINT,
+    email VARCHAR(100),
+    password VARCHAR(50)
+);
+
+INSERT INTO users VALUES
+(1, 'ishika', 9028568002, 'ishikab@gmail.com', '1234'),
+(2, 'anushka', 9423730740, 'anumbora2@gmail.com', 'Anush@123'),
+(3, 'arya d', 6892345670, 'arya.d@gmail.com', 'we'),
+(4, 'ishikaa', 9875678908, 'ishi@gmail.com', '1234'),
+(5, 'anushka bora', 9049989922, 'anush.cosmos@gmail.com', 'app123');
+
+-- ===============================
+-- locations
+-- ===============================
+CREATE TABLE locations (
+    id INT PRIMARY KEY,
+    name VARCHAR(100),
+    latitude DECIMAL(10,8),
+    longitude DECIMAL(10,8)
+);
+
+INSERT INTO locations VALUES
+(1,'Alankar Police Station',18.50420000,73.81180000),
+(2,'Bharti Vidyapeeth More Vidyalaya',18.45750000,73.85080000),
+(3,'City Pride Kothrud',18.50240000,73.81300000),
+(4,'Cummins College',18.48770000,73.81660000),
+(5,'Dashabhuja Ganpati',18.50340000,73.82420000),
+(6,'Deccan Bus Stop',18.51780000,73.84270000),
+(7,'Eklavya College',18.50480000,73.80620000),
+(8,'Erandwane',18.50890000,73.82860000),
+(9,'Hingane Home Colony',18.49010000,73.82140000),
+(10,'Ideal Colony',18.51010000,73.81520000),
+(11,'Jog High School',18.49840000,73.81890000),
+(12,'Karishma Society',18.50330000,73.81680000),
+(13,'Karve Nagar Bus Stop',18.49160000,73.82130000),
+(14,'Karve Nagar Garden',18.48780000,73.82340000),
+(15,'Karvenagar Chowk',18.49120000,73.82150000),
+(16,'Kothrud Depot',18.50150000,73.80340000),
+(17,'MIT College Gate',18.52050000,73.81500000),
+(18,'MITCON Institute',18.55820000,73.76440000),
+(19,'Mahesh Vidyalaya',18.49500000,73.81500000),
+(20,'More Vidyalaya Karvenagar',18.49200000,73.82300000),
+(21,'Nal Stop',18.51260000,73.83270000),
+(22,'Parvati Gaon',18.49600000,73.84440000),
+(23,'Paud Phata',18.51110000,73.82620000),
+(24,'Rajaram Bridge',18.49550000,73.82640000),
+(25,'S.M. Joshi School',18.50110000,73.81900000),
+(26,'SNDT College',18.50650000,73.83400000),
+(27,'Sarasbaug',18.50220000,73.85290000),
+(28,'Vanaz Depot',18.50850000,73.79320000),
+(29,'Vitthalwadi',18.48600000,73.82700000),
+(30,'Warje Bridge',18.47950000,73.80350000);
+
+-- ===============================
+-- location_danger
+-- ===============================
+CREATE TABLE location_danger (
+    location_id INT,
+    danger_score INT,
+    last_reported DATETIME
+);
+
+INSERT INTO location_danger VALUES
+(21, 2, '2026-01-28 21:41:31'),
+(23, 2, '2026-01-28 20:47:03');
+
+-- ===============================
+-- offline_reports
+-- ===============================
+CREATE TABLE offline_reports (
+    id INT PRIMARY KEY,
+    user_id INT,
+    name VARCHAR(50),
+    contact BIGINT,
+    category VARCHAR(50),
+    description TEXT,
+    location_id INT,
+    time DATETIME
+);
+
+INSERT INTO offline_reports VALUES
+(1,1,'ishika',9028568002,'Assault','eveteasing',23,'2026-01-28 20:47:03'),
+(2,2,'anushka',9423730740,'Harassment','harasment at the bus stop',21,'2026-01-28 21:41:31'),
+(3,3,'arya d',6892345670,'EMERGENCY','Safety Timer Expired - No Check-in',1,'2026-01-28 21:52:22'),
+(4,2,'anushka',9423730740,'EMERGENCY','Safety Timer Expired - No Check-in',9,'2026-01-28 22:07:17'),
+(5,2,'anushka',9423730740,'EMERGENCY','Safety Timer Expired - No Check-in',9,'2026-01-28 22:10:35'),
+(6,1,'ishika',9028568002,'SAFE','User safely reached destination from Cummins College to Deccan Bus Stop.',NULL,'2026-01-29 17:47:32'),
+(7,2,'anushka',9423730740,'SAFE','User safely reached destination from Alankar Police Station to Bharti Vidyapeeth More Vidyalaya.',NULL,'2026-01-29 18:27:55'),
+(8,2,'anushka',9423730740,'SAFE','User safely reached destination from Cummins College to Deccan Bus Stop.',NULL,'2026-01-29 18:51:07'),
+(9,1,'ishika',9028568002,'EVIDENCE_UPLOADED','Evidence file uploaded: 1_Screenshot (771).png',NULL,'2026-01-29 21:24:36'),
+(10,1,'ishika',9028568002,'EVIDENCE_UPLOADED','Evidence file uploaded: 1_Screenshot (774).png',NULL,'2026-01-29 21:34:59'),
+(11,1,'ishika',9028568002,'EVIDENCE_UPLOADED','Evidence file uploaded: 1_Screenshot (770).png',NULL,'2026-01-29 21:42:10'),
+(12,2,'anushka',9423730740,'SAFE','User safely reached destination from Cummins College to Dashabhuja Ganpati.',NULL,'2026-01-29 21:56:19'),
+(13,2,'anushka',9423730740,'SAFE','User safely reached destination from Cummins College to Dashabhuja Ganpati.',NULL,'2026-01-31 20:46:11'),
+(14,5,'anushka bora',9049989922,'SAFE','User safely reached destination from Dashabhuja Ganpati to Cummins College.',NULL,'2026-02-04 10:29:04'),
+(15,2,'anushka',9423730740,'SAFE','User safely reached destination from Bharti Vidyapeeth More Vidyalaya to Cummins College.',NULL,'2026-02-04 15:05:36');
+
+-- ===============================
+-- online_reports
+-- ===============================
+CREATE TABLE online_reports (
+    id INT PRIMARY KEY,
+    user_id INT,
+    name VARCHAR(50),
+    contact BIGINT,
+    description TEXT,
+    platform VARCHAR(50),
+    url TEXT,
+    screenshot TEXT,
+    category VARCHAR(50),
+    time DATETIME
+);
+
+INSERT INTO online_reports VALUES
+(1,1,'ishika',9028568002,'email fraud','fiverr','https://www.fiverr.com/','https://www.fiverr.com/','Theft','2026-01-28 20:45:22'),
+(2,2,'anushka',9423730740,'credit card scam','airtel app','https://www.airtel.in/bank/terms/security/index.html','https://www.google.com','Theft','2026-01-28 22:28:22'),
+(3,2,'anushka',9423730740,'theft','facebook','https://www.airtel.in/bank/terms/security/index.html','https://www.airtel.in/bank/terms/security/index.html','Theft','2026-01-28 23:20:15'),
+(4,1,'ishika',9028568002,'asking for the otp after i did the transcation of x amount to the bank','Whatsapp','https://www.google.com',NULL,'Cyber Harassment','2026-01-29 20:58:53'),
+(5,2,'anushka',9423730740,'theft','facebook','https://www.facebook.com/',NULL,'Cyber Harassment','2026-02-04 15:11:19');
+
+-- ===============================
+-- evidence_logs
+-- ===============================
+CREATE TABLE evidence_logs (
+    id INT PRIMARY KEY,
+    user_id INT,
+    file_name VARCHAR(100),
+    upload_time DATETIME
+);
+
+INSERT INTO evidence_logs VALUES
+(1,1,'Screenshot (770).png','2026-01-29 21:00:10');
+
+-- ===============================
+-- safety_timers
+-- ===============================
+CREATE TABLE safety_timers (
+    timer_id INT PRIMARY KEY,
+    user_id INT,
+    expiry_time DATETIME,
+    is_active BOOLEAN,
+    start_location_id INT,
+    end_location_id INT
+);
+
+INSERT INTO safety_timers VALUES
+(1,2,'2026-01-28 22:02:14',1,NULL,NULL),
+(2,2,'2026-01-28 21:43:52',1,NULL,NULL),
+(3,3,'2026-01-28 21:52:23',1,NULL,NULL),
+(4,2,'2026-01-28 22:07:17',0,4,9),
+(5,2,'2026-01-28 22:10:35',0,4,9),
+(6,2,'2026-01-28 22:15:50',0,1,2),
+(7,2,NULL,1,NULL,NULL),
+(8,2,NULL,0,NULL,NULL),
+(9,2,NULL,0,NULL,NULL),
+(10,1,NULL,1,NULL,NULL),
+(11,1,NULL,0,NULL,NULL);
+
+| locations           |
+| offline_reports     |
+| online_reports      |
+| safety_timers       |
+| users               |
++---------------------+
+8 rows in set (0.05 sec)
+
+mysql> select * from admin;
++----+--------+-----------+
+| id | adname | password  |
++----+--------+-----------+
+|  1 | admin  | Anushroot |
++----+--------+-----------+
+1 row in set (0.00 sec)
+
+mysql> select * from evidence_logs;
++----+---------+----------------------+---------------------+
+| id | user_id | file_name            | upload_time         |
++----+---------+----------------------+---------------------+
+|  1 |       1 | Screenshot (770).png | 2026-01-29 21:00:10 |
++----+---------+----------------------+---------------------+
+1 row in set (0.07 sec)
+
+mysql> select * from location_danger;;
++-------------+--------------+---------------------+
+| location_id | danger_score | last_reported       |
++-------------+--------------+---------------------+
+|          21 |            2 | 2026-01-28 21:41:31 |
+|          23 |            2 | 2026-01-28 20:47:03 |
++-------------+--------------+---------------------+
+2 rows in set (0.00 sec)
+
+ERROR:
+No query specified
+
+mysql> select * from locations;
++----+----------------------------------+-------------+-------------+
+| id | name                             | latitude    | longitude   |
++----+----------------------------------+-------------+-------------+
+|  1 | Alankar Police Station           | 18.50420000 | 73.81180000 |
+|  2 | Bharti Vidyapeeth More Vidyalaya | 18.45750000 | 73.85080000 |
+|  3 | City Pride Kothrud               | 18.50240000 | 73.81300000 |
+|  4 | Cummins College                  | 18.48770000 | 73.81660000 |
+|  5 | Dashabhuja Ganpati               | 18.50340000 | 73.82420000 |
+|  6 | Deccan Bus Stop                  | 18.51780000 | 73.84270000 |
+|  7 | Eklavya College                  | 18.50480000 | 73.80620000 |
+|  8 | Erandwane                        | 18.50890000 | 73.82860000 |
+|  9 | Hingane Home Colony              | 18.49010000 | 73.82140000 |
+| 10 | Ideal Colony                     | 18.51010000 | 73.81520000 |
+| 11 | Jog High School                  | 18.49840000 | 73.81890000 |
+| 12 | Karishma Society                 | 18.50330000 | 73.81680000 |
+| 13 | Karve Nagar Bus Stop             | 18.49160000 | 73.82130000 |
+| 14 | Karve Nagar Garden               | 18.48780000 | 73.82340000 |
+| 15 | Karvenagar Chowk                 | 18.49120000 | 73.82150000 |
+| 16 | Kothrud Depot                    | 18.50150000 | 73.80340000 |
+| 17 | MIT College Gate                 | 18.52050000 | 73.81500000 |
+| 18 | MITCON Institute                 | 18.55820000 | 73.76440000 |
+| 19 | Mahesh Vidyalaya                 | 18.49500000 | 73.81500000 |
+| 20 | More Vidyalaya Karvenagar        | 18.49200000 | 73.82300000 |
+| 21 | Nal Stop                         | 18.51260000 | 73.83270000 |
+| 22 | Parvati Gaon                     | 18.49600000 | 73.84440000 |
+| 23 | Paud Phata                       | 18.51110000 | 73.82620000 |
+| 24 | Rajaram Bridge                   | 18.49550000 | 73.82640000 |
+| 25 | S.M. Joshi School                | 18.50110000 | 73.81900000 |
+| 26 | SNDT College                     | 18.50650000 | 73.83400000 |
+| 27 | Sarasbaug                        | 18.50220000 | 73.85290000 |
+| 28 | Vanaz Depot                      | 18.50850000 | 73.79320000 |
+| 29 | Vitthalwadi                      | 18.48600000 | 73.82700000 |
+| 30 | Warje Bridge                     | 18.47950000 | 73.80350000 |
++----+----------------------------------+-------------+-------------+
+30 rows in set (0.02 sec)
+
+mysql> show tables;
++---------------------+
+| Tables_in_NARIRAKSHA |
++---------------------+
+| admin               |
+| evidence_logs       |
+| location_danger     |
+| locations           |
+| offline_reports     |
+| online_reports      |
+| safety_timers       |
+| users               |
++---------------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from offline_reports;
++----+---------+--------------+------------+-------------------+--------------------------------------------------------------------------------------------------+-------------+---------------------+
+| id | user_id | name         | contact    | category          | description                                                                                      | location_id | time                |
++----+---------+--------------+------------+-------------------+--------------------------------------------------------------------------------------------------+-------------+---------------------+
+|  1 |       1 | ishika       | 9028568002 | Assault           | eveteasing                                                                                       |          23 | 2026-01-28 20:47:03 |
+|  2 |       2 | anushka      | 9423730740 | Harassment        | harasment at the bus stop                                                                        |          21 | 2026-01-28 21:41:31 |
+|  3 |       3 | arya d       | 6892345670 | EMERGENCY         | Safety Timer Expired - No Check-in                                                               |           1 | 2026-01-28 21:52:22 |
+|  4 |       2 | anushka      | 9423730740 | EMERGENCY         | Safety Timer Expired - No Check-in                                                               |           9 | 2026-01-28 22:07:17 |
+|  5 |       2 | anushka      | 9423730740 | EMERGENCY         | Safety Timer Expired - No Check-in                                                               |           9 | 2026-01-28 22:10:35 |
+|  6 |       1 | ishika       | 9028568002 | SAFE              | User safely reached destination from Cummins College to Deccan Bus Stop.                         |        NULL | 2026-01-29 17:47:32 |
+|  7 |       2 | anushka      | 9423730740 | SAFE              | User safely reached destination from Alankar Police Station to Bharti Vidyapeeth More Vidyalaya. |        NULL | 2026-01-29 18:27:55 |
+|  8 |       2 | anushka      | 9423730740 | SAFE              | User safely reached destination from Cummins College to Deccan Bus Stop.                         |        NULL | 2026-01-29 18:51:07 |
+|  9 |       1 | ishika       | 9028568002 | EVIDENCE_UPLOADED | Evidence file uploaded: 1_Screenshot (771).png                                                   |        NULL | 2026-01-29 21:24:36 |
+| 10 |       1 | ishika       | 9028568002 | EVIDENCE_UPLOADED | Evidence file uploaded: 1_Screenshot (774).png                                                   |        NULL | 2026-01-29 21:34:59 |
+| 11 |       1 | ishika       | 9028568002 | EVIDENCE_UPLOADED | Evidence file uploaded: 1_Screenshot (770).png                                                   |        NULL | 2026-01-29 21:42:10 |
+| 12 |       2 | anushka      | 9423730740 | SAFE              | User safely reached destination from Cummins College to Dashabhuja Ganpati.                      |        NULL | 2026-01-29 21:56:19 |
+| 13 |       2 | anushka      | 9423730740 | SAFE              | User safely reached destination from Cummins College to Dashabhuja Ganpati.                      |        NULL | 2026-01-31 20:46:11 |
+| 14 |       5 | anushka bora | 9049989922 | SAFE              | User safely reached destination from Dashabhuja Ganpati to Cummins College.                      |        NULL | 2026-02-04 10:29:04 |
+| 15 |       2 | anushka      | 9423730740 | SAFE              | User safely reached destination from Bharti Vidyapeeth More Vidyalaya to Cummins College.        |        NULL | 2026-02-04 15:05:36 |
++----+---------+--------------+------------+-------------------+--------------------------------------------------------------------------------------------------+-------------+---------------------+
+15 rows in set (0.00 sec)
+
+mysql> select * from online_reports;
++----+---------+---------+------------+------------------------------------------------------------------------+------------+------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------+---------------------+
+| id | user_id | name    | contact    | description                                                            | platform   | url                                                  | screenshot                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | category         | time                |
++----+---------+---------+------------+------------------------------------------------------------------------+------------+------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------+---------------------+
+|  1 |       1 | ishika  | 9028568002 | email fraud                                                            | fiverr     | https://www.fiverr.com/                              | https://www.fiverr.com/                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Theft            | 2026-01-28 20:45:22 |
+|  2 |       2 | anushka | 9423730740 | credit card scam                                                       | airtel app | https://www.airtel.in/bank/terms/security/index.html | https://www.google.com/search?sca_esv=fc9cc7141bd3a5ec&sxsrf=ANbL-n7Af14mDM50GJyNXoBcnnTWSYh_WQ:1769619437539&udm=2&fbs=ADc_l-aN0CWEZBOHjofHoaMMDiKp0UJuhqwKhR0QUhF54-6jIX2xhuqmjuyJb8bmeAomNlEy2WjTgHAi4Qgcs7Ygd2poXjlUljDORJyPMhqjZK_cfGjMlK45iVt2-UQEHVl1cyD_WhiNj5x08vTx_6Zxva5lP-st2kFibLY1eYK71we-7qtMzvPWQv0-P4vQJtT90Y1Qu3Jd5GTqlkWdElMBYMvSUrnxkA&q=airtel+app+fraud&sa=X&ved=2ahUKEwiD-9iP2q6SAxUTkK8BHbmNGiYQtKgLegQIEhAB&biw=1536&bih=730&dpr=1.25&aic=0#sv=CAMSVhoyKhBlLVk2aHl2QVhCMjdYT1lNMg5ZNmh5dkFYQjI3WE9ZTToOX2hQQzMtc1lMUmo3ek0gBCocCgZtb3NhaWMSEGUtWTZoeXZBWEIyN1hPWU0YADABGAcg08CDxwEwAkoKCAEQAhgCIAIoAg | Theft            | 2026-01-28 22:28:22 |
+|  3 |       2 | anushka | 9423730740 | theft                                                                  | facebook   | https://www.airtel.in/bank/terms/security/index.html | https://www.airtel.in/bank/terms/security/index.html                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Theft            | 2026-01-28 23:20:15 |
+|  4 |       1 | ishika  | 9028568002 | asking for the otp after i did the transcation of x amount to the bank | Whatsapp   | https://www.google.com                               | NULL                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Cyber Harassment | 2026-01-29 20:58:53 |
+|  5 |       2 | anushka | 9423730740 | theft                                                                  | facebook   | https://www.facebook.com/                            | NULL                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                           | Cyber Harassment | 2026-02-04 15:11:19 |
++----+---------+---------+------------+------------------------------------------------------------------------+------------+------------------------------------------------------+--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------+------------------+---------------------+
+5 rows in set (0.00 sec)
+
+mysql> show tables;
++---------------------+
+| Tables_in_NARIRAKSHA |
++---------------------+
+| admin               |
+| evidence_logs       |
+| location_danger     |
+| locations           |
+| offline_reports     |
+| online_reports      |
+| safety_timers       |
+| users               |
++---------------------+
+8 rows in set (0.00 sec)
+
+mysql> select * from safety_timers;
++----------+---------+---------------------+-----------+-------------------+-----------------+
+| timer_id | user_id | expiry_time         | is_active | start_location_id | end_location_id |
++----------+---------+---------------------+-----------+-------------------+-----------------+
+|        1 |       2 | 2026-01-28 22:02:14 |         1 |              NULL |            NULL |
+|        2 |       2 | 2026-01-28 21:43:52 |         1 |              NULL |            NULL |
+|        3 |       3 | 2026-01-28 21:52:23 |         1 |              NULL |            NULL |
+|        4 |       2 | 2026-01-28 22:07:17 |         0 |                 4 |               9 |
+|        5 |       2 | 2026-01-28 22:10:35 |         0 |                 4 |               9 |
+|        6 |       2 | 2026-01-28 22:15:50 |         0 |                 1 |               2 |
+|        7 |       2 | NULL                |         1 |              NULL |            NULL |
+|        8 |       2 | NULL                |         0 |              NULL |            NULL |
+|        9 |       2 | NULL                |         0 |              NULL |            NULL |
+|       10 |       1 | NULL                |         1 |              NULL |            NULL |
+|       11 |       1 | NULL                |         0 |              NULL |            NULL |
++----------+---------+---------------------+-----------+-------------------+-----------------+
+11 rows in set (0.04 sec)
+
+mysql> select * from users;
++---------+--------------+------------+------------------------+-----------+
+| user_id | name         | contact    | email                  | password  |s
++---------+--------------+------------+------------------------+-----------+
+|       1 | ishika       | 9028568002 | ishikab@gmail.com      | 1234      |
+|       2 | anushka      | 9423730740 | anumbora2@gmail.com    | Anush@123 |
+|       3 | arya d       | 6892345670 | arya.d@gmail.com       | we        |
+|       4 | ishikaa      | 9875678908 | ishi@gmail.com         | 1234      |
+|       5 | anushka bora | 9049989922 | anush.cosmos@gmail.com | app123    |
++---------+--------------+------------+------------------------+-----------+
+5 rows in set (0.00 sec)
+
+mysql>
